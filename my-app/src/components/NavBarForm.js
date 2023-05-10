@@ -1,38 +1,37 @@
 import React, { Component } from 'react';
 import css from './css/NavBarForm.module.css';
+import NavBarChild from './NavBarChild';
 
-export class NavBarForm extends Component {
-   constructor(props) {
-     super(props)
-     this.state = {
-        isLoggedIn: true
-     }
-   }
+class NavBarForm extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+       isLoggedIn: true
+    }
+  }
 
-   handleClick = () => {
-    this.setState({
-        isLoggedIn: false
-    });
-        console.log(this)
-   }
+  handleClick = () => {
+    this.setState((prevState) => ({
+        
+            isLoggedIn: prevState.isLoggedIn ? false : true
+        }), () => console.log(this.state.isLoggedIn))
+    
+  }
   
     render() {
     return (
-      <div className={css.NavBar}>
+      <div className = {css.NavBar}>
         <h1>My Gallery</h1>
-        {this.state.isLoggedIn ? (
-            <button onClick={this.handleClick}>Login</button>
-        ) : (
-            <form>
-                <label for='uname'>Username:</label>
-                <input type='text' id='uname' name='uname'></input>
-                <label for='pword'>Password:</label>
-                <input type='text' id='pword' name='pword'></input>
-                <button onClick={this.handleClick}>Submit</button>
-            </form>
-        )}
+        
+            <NavBarChild
+            isLoggedIn={this.state.isLoggedIn}
+            handleClick ={this.handleClick}
+            />
+            
         
         
+        
+
       </div>
     )
   }
